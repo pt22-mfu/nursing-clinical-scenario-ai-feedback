@@ -146,15 +146,15 @@ const MFU_LOGO_URL =
 function StatusBadge({ status }: { status: ScenarioStatus }) {
   if (status === 'demo-ready') {
     return (
-      <span className="inline-flex items-center rounded-full bg-[#173B63] px-3 py-1 text-xs font-semibold text-white shadow-sm">
+      <span className="inline-flex items-center rounded-full bg-[#173B63] px-4 py-1.5 text-sm font-semibold text-white shadow-sm">
         Demo Ready
       </span>
     )
   }
 
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-500">
-      <svg className="h-3 w-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-4 py-1.5 text-sm font-semibold text-slate-500">
+      <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect x="3" y="11" width="18" height="11" rx="2" />
         <path d="M7 11V7a5 5 0 0 1 10 0v4" />
       </svg>
@@ -203,16 +203,24 @@ export default async function DashboardPage() {
             </div>
           </div>
 
-          <details className="group relative shrink-0">
-            <summary className="flex cursor-pointer list-none items-center gap-2 rounded-full border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-950 shadow-[0_8px_22px_rgba(15,23,42,0.12)] transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-[#F5821F] focus:ring-offset-2 sm:px-4">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#173B63] text-white">
-                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="8" r="4" />
-                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-                </svg>
-              </span>
-              <span className="hidden sm:inline">ID: {studentId}</span>
-              <span className="sm:hidden">{studentId}</span>
+          <div className="flex shrink-0 items-center gap-4">
+            <Link
+              href="/dashboard/history"
+              className="hidden sm:inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#F5821F] to-[#C65F16] px-4 py-1.5 text-xs font-bold tracking-wide text-white shadow-sm transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#F5821F] focus:ring-offset-2"
+            >
+              Practice History
+            </Link>
+
+            <details className="group relative">
+              <summary className="flex cursor-pointer list-none items-center gap-2 rounded-full border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-950 shadow-[0_8px_22px_rgba(15,23,42,0.12)] transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-[#F5821F] focus:ring-offset-2 sm:px-4">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#173B63] text-white">
+                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="8" r="4" />
+                    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+                  </svg>
+                </span>
+                <span className="hidden sm:inline">ID: {studentId}</span>
+                <span className="sm:hidden">{studentId}</span>
               <svg
                 className="h-4 w-4 text-slate-700 transition group-open:rotate-180"
                 fill="none"
@@ -240,6 +248,7 @@ export default async function DashboardPage() {
               </form>
             </div>
           </details>
+          </div>
         </div>
 
         <div className="bg-[#F5821F] py-6 shadow-md sm:py-8">
@@ -256,30 +265,23 @@ export default async function DashboardPage() {
 
       <main className="mx-auto w-full max-w-[1500px] flex-1 px-5 py-10 sm:px-8 lg:px-10 lg:py-14">
         <section>
-          <div className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:mb-12">
-            <div>
-              <p className="inline-flex items-center gap-2.5 text-sm font-semibold uppercase tracking-wider text-[#C65F16]">
-                <span className="h-4 w-1 rounded-full bg-[#F5821F]" />
+          <div className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between lg:mb-12">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl bg-white px-5 py-3 text-sm shadow-sm ring-1 ring-slate-200 sm:rounded-full">
+              <span className="font-bold uppercase tracking-wider text-[#C65F16]">
                 Curriculum Structure
-              </p>
-
-              {/* Availability summary stats */}
-              <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
-                <span className="flex items-center gap-1.5 font-semibold text-[#173B63]">
-                  <span className="inline-block h-2 w-2 rounded-full bg-[#173B63]" />
-                  1 Available Now
-                </span>
-                <span className="text-slate-300" aria-hidden="true">|</span>
-                <span className="flex items-center gap-1.5 font-medium text-slate-400">
-                  <span className="inline-block h-2 w-2 rounded-full bg-slate-300" />
-                  11 Coming Soon
-                </span>
-                <span className="text-slate-300" aria-hidden="true">|</span>
-                <span className="flex items-center gap-1.5 font-medium text-slate-500">
-                  <span className="inline-block h-2 w-2 rounded-full bg-slate-400" />
-                  6 Modules
-                </span>
-              </div>
+              </span>
+              <span className="text-slate-300" aria-hidden="true">|</span>
+              <span className="font-semibold text-[#173B63]">
+                1 Available Now
+              </span>
+              <span className="text-slate-300" aria-hidden="true">|</span>
+              <span className="font-medium text-slate-500">
+                11 Coming Soon
+              </span>
+              <span className="text-slate-300" aria-hidden="true">|</span>
+              <span className="font-medium text-slate-500">
+                6 Modules
+              </span>
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
