@@ -6,6 +6,7 @@ import { useRef, useState } from 'react'
 const TOTAL_STEPS = 10
 const MAX_STEP_ANSWER_LENGTH = 2000
 const BACK_PAIN_IMAGE_PATH = '/scenarios/back-pain/back-pain-clinical-scene.png'
+const SCENARIO_TITLE = 'Acute Lower Back Pain'
 
 type ScenarioStepPracticeProps = {
   scenarioId: string
@@ -199,7 +200,7 @@ function TrophyIcon() {
     >
       <path
         d="M6 3h12M6 3c0 5 2 8 6 9M6 3H4a1 1 0 0 0-1 1v1c0 2.5 1.5 4.5 3 5.5M18 3c0 5-2 8-6 9M18 3h2a1 1 0 0 1 1 1v1c0 2.5-1.5 4.5-3 5.5M12 12v5M9 21h6M10 17h4"
-        stroke="#f97316"
+        stroke="#55aa20"
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -230,25 +231,30 @@ function StepDots({
   completedUpTo: number
 }) {
   return (
-    <div className="flex items-center justify-center gap-2 bg-white px-6 py-4">
+    <div className="mb-3 flex items-center justify-center gap-2.5 px-4 sm:mb-4 sm:gap-3">
       {Array.from({ length: TOTAL_STEPS }).map((_, index) => {
         const stepNumber = index + 1
         const isActive = stepNumber === currentStep
         const isDone = stepNumber <= completedUpTo && stepNumber < currentStep
 
         return (
-          <span
+          <div
             key={stepNumber}
-            className={[
-              'rounded-full transition-all duration-200',
-              isActive
-                ? 'h-[14px] w-[14px] bg-[#f97316] shadow-sm shadow-orange-300'
-                : isDone
-                  ? 'h-3 w-3 bg-[#fdba74]'
-                  : 'h-3 w-3 bg-[#fed7aa]',
-            ].join(' ')}
+            className={`flex items-center justify-center rounded-full transition-all duration-300 ${
+              isActive ? 'h-6 w-6 border-2 border-[#F5821F]' : 'h-6 w-6'
+            }`}
             aria-label={`Step ${stepNumber}`}
-          />
+          >
+            <span
+              className={`block rounded-full transition-all duration-300 ${
+                isActive
+                  ? 'h-2.5 w-2.5 bg-[#F5821F]'
+                  : isDone
+                    ? 'h-2.5 w-2.5 bg-[#F5821F]/60'
+                    : 'h-2 w-2 bg-slate-200'
+              }`}
+            />
+          </div>
         )
       })}
     </div>
@@ -257,10 +263,15 @@ function StepDots({
 
 function StepBar({ step }: { step: StepItem }) {
   return (
-    <div className="bg-[#f97316] px-5 py-3">
-      <p className="text-left text-sm font-bold tracking-wide text-white">
-        {step.order}. {step.title}
-      </p>
+    <div className="border-b border-slate-100 bg-white px-6 py-4 sm:px-8 sm:py-5">
+      <div className="flex items-center gap-3">
+        <span className="inline-flex items-center justify-center rounded-full bg-[#F5821F]/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#C65F16]">
+          Step {step.order}
+        </span>
+        <h1 className="text-lg font-bold text-slate-900 sm:text-xl">
+          {step.title}
+        </h1>
+      </div>
     </div>
   )
 }
@@ -398,125 +409,128 @@ export default function ScenarioStepPractice({
 
   if (screenState === 'completed') {
     return (
-      <section
-        data-scenario-id={scenarioId}
-        className="min-h-[calc(100vh-3.5rem)] bg-white"
-      >
-        <div className="flex items-center justify-center gap-2 bg-white px-6 py-4">
-          {Array.from({ length: TOTAL_STEPS }).map((_, index) => (
-            <span
-              key={index}
-              className="h-[14px] w-[14px] rounded-full bg-[#f97316] shadow-sm shadow-orange-300"
-            />
-          ))}
-        </div>
+      <div className="min-h-[calc(100vh-3.5rem)] bg-slate-50 py-4 px-4 sm:py-6 sm:px-6 pb-8 sm:pb-12">
+        <StepDots currentStep={10} completedUpTo={10} />
 
-        <div className="bg-[#f97316] px-5 py-3">
-          <p className="text-left text-sm font-bold tracking-wide text-white">
-            Scenario Complete / ทำสถานการณ์เสร็จสิ้น
-          </p>
-        </div>
+        <section
+          data-scenario-id={scenarioId}
+          className="mx-auto w-full max-w-3xl overflow-hidden rounded-[24px] bg-white shadow-[0_8px_30px_rgba(15,23,42,0.04)] ring-1 ring-slate-200"
+        >
 
-        <div className="px-5 py-6">
-          <div className="rounded-3xl bg-[#f5f5f5] px-6 py-10 text-center">
-            <div className="flex justify-center">
+          <div className="border-b border-slate-100 bg-white px-6 py-4 sm:px-8 sm:py-5">
+            <h1 className="text-center text-lg font-bold text-slate-900 sm:text-xl">
+              Scenario Complete / ทำสถานการณ์เสร็จสิ้น
+            </h1>
+          </div>
+
+          <div className="px-6 py-10 sm:px-10 sm:py-14">
+            <div className="flex flex-col items-center text-center">
               <TrophyIcon />
-            </div>
 
-            <h2 className="mt-4 text-4xl font-bold text-[#55aa20]">
-              Congratulations!
-            </h2>
+              <h2 className="mt-6 text-3xl font-bold tracking-tight text-[#55aa20] sm:text-4xl">
+                Congratulations!
+              </h2>
 
-            <p className="mt-2 text-2xl font-bold text-[#55aa20]">
-              ยินดีด้วย
-            </p>
+              <p className="mt-2 text-xl font-bold text-[#55aa20] sm:text-2xl">
+                ยินดีด้วย
+              </p>
 
-            <p className="mt-4 text-base font-medium leading-7 text-[#5f5f5f]">
-              EN: You completed all 10 steps of this clinical scenario.
-            </p>
+              <div className="mt-6 max-w-lg space-y-4 text-base font-medium leading-relaxed text-slate-600">
+                <p>EN: You completed all 10 steps of this clinical scenario.</p>
+                <p>TH: คุณทำครบทั้ง 10 ขั้นตอนของสถานการณ์ทางคลินิกนี้แล้ว</p>
+              </div>
 
-            <p className="mt-2 text-base font-medium leading-7 text-[#5f5f5f]">
-              TH: คุณทำครบทั้ง 10 ขั้นตอนของสถานการณ์ทางคลินิกนี้แล้ว
-            </p>
+              <p className="mt-6 text-sm leading-6 text-slate-400">
+                EN: Great work. Keep practicing to build your clinical confidence.
+                <br />
+                TH: ทำได้ดีมาก ฝึกต่อไปเพื่อเพิ่มความมั่นใจทางคลินิก
+              </p>
 
-            <p className="mt-3 text-sm leading-6 text-[#888]">
-              EN: Great work. Keep practicing to build your clinical confidence.
-              <br />
-              TH: ทำได้ดีมาก ฝึกต่อไปเพื่อเพิ่มความมั่นใจทางคลินิก
-            </p>
+              <div className="mt-10 flex w-full max-w-[280px] flex-col gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setHighestCompleted(0)
+                    resetForStep(1)
+                  }}
+                  className="w-full rounded-2xl bg-[#F5821F] px-6 py-4 text-[15px] font-bold text-white shadow-sm transition hover:bg-[#C65F16] active:scale-[0.98]"
+                >
+                  Restart Scenario / เริ่มใหม่
+                </button>
 
-            <div className="mt-8 flex flex-col items-center gap-3">
-              <button
-                type="button"
-                onClick={() => {
-                  setHighestCompleted(0)
-                  resetForStep(1)
-                }}
-                className="w-full max-w-[260px] rounded-2xl bg-[#f97316] px-6 py-4 text-base font-bold text-white transition hover:bg-[#ea6c0a] active:scale-[0.98]"
-              >
-                Restart Scenario / เริ่มใหม่
-              </button>
-
-              <a
-                href="/dashboard"
-                className="w-full max-w-[260px] rounded-2xl bg-[#e5e5e5] px-6 py-4 text-center text-base font-semibold text-[#333] transition hover:bg-[#d9d9d9] active:scale-[0.98]"
-              >
-                Back to Dashboard / กลับแดชบอร์ด
-              </a>
+                <a
+                  href="/dashboard"
+                  className="w-full rounded-2xl bg-slate-100 px-6 py-4 text-center text-[15px] font-semibold text-slate-700 transition hover:bg-slate-200 active:scale-[0.98]"
+                >
+                  Back to Dashboard / กลับแดชบอร์ด
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     )
   }
 
   if (screenState === 'success') {
     return (
-      <section
-        data-scenario-id={scenarioId}
-        className="min-h-[calc(100vh-3.5rem)] bg-white"
-      >
+      <div className="min-h-[calc(100vh-3.5rem)] bg-slate-50 py-4 px-4 sm:py-6 sm:px-6 pb-8 sm:pb-12">
         <StepDots
           currentStep={currentStepOrder}
           completedUpTo={highestCompleted}
         />
-        <StepBar step={currentStep} />
 
-        <div className="px-5 py-6">
-          <div className="rounded-3xl bg-[#f5f5f5] px-6 py-10">
-            <div className="flex justify-center">
-              <CheckCircleIcon />
+        <section
+          data-scenario-id={scenarioId}
+          className="mx-auto w-full max-w-3xl overflow-hidden rounded-[24px] bg-white shadow-[0_8px_30px_rgba(15,23,42,0.04)] ring-1 ring-slate-200"
+        >
+          <StepBar step={currentStep} />
+
+          <div className="px-6 py-8 sm:px-10 sm:py-10">
+            <div className="flex flex-col items-center">
+              {isLastStep ? <TrophyIcon /> : <CheckCircleIcon />}
+
+              {isLastStep ? (
+                <>
+                  <h2 className="mt-5 text-center text-3xl font-bold tracking-tight text-[#55aa20] sm:text-4xl">
+                    Congratulations!
+                  </h2>
+                  <p className="mt-2 text-center text-xl font-bold text-[#55aa20] sm:text-2xl">
+                    ยินดีด้วย
+                  </p>
+                </>
+              ) : (
+                <h2 className="mt-5 text-center text-2xl font-bold tracking-tight text-[#55aa20] sm:text-3xl">
+                  Step Completed.
+                </h2>
+              )}
+
+              <div className="mt-4 max-w-lg space-y-3 text-center text-[15px] font-medium leading-relaxed text-slate-600">
+                {isLastStep ? (
+                  <p>Good job. You have successfully finished &ldquo;{SCENARIO_TITLE}&rdquo; clinical scenario.</p>
+                ) : (
+                  <>
+                    <p>EN: Your answer has been submitted for this step.</p>
+                    <p>TH: ส่งคำตอบของคุณสำหรับขั้นตอนนี้แล้ว</p>
+                  </>
+                )}
+              </div>
             </div>
 
-            <h2 className="mt-3 text-center text-4xl font-bold text-[#55aa20]">
-              Congratulations!
-            </h2>
-
-            <p className="mt-2 text-center text-2xl font-bold text-[#55aa20]">
-              ยินดีด้วย
-            </p>
-
-            <p className="mt-4 text-center text-base font-medium leading-7 text-[#5f5f5f]">
-              EN: Great answer. You covered the key points for this step.
-              <br />
-              TH: คำตอบดีมาก คุณครอบคลุมประเด็นสำคัญของขั้นตอนนี้แล้ว
-            </p>
-
-            <div className="mt-5 rounded-2xl border border-[#e8e8e8] bg-white px-5 py-4">
-              <p className="text-xs font-semibold uppercase tracking-widest text-[#f97316]">
+            <div className="mx-auto mt-8 w-full max-w-2xl rounded-[20px] border border-orange-100 bg-orange-50/50 p-6">
+              <p className="text-xs font-bold uppercase tracking-wider text-[#C65F16]">
                 Tip for improvement / คำแนะนำเพิ่มเติม
               </p>
-
-              <p className="mt-2 whitespace-pre-line text-sm leading-6 text-[#5f5f5f]">
+              <p className="mt-3 whitespace-pre-line text-[15px] leading-relaxed text-slate-700">
                 {currentStep.feedback}
               </p>
             </div>
 
-            <div className="mt-8 flex flex-col items-center gap-3">
+            <div className="mx-auto mt-10 flex w-full max-w-sm flex-col items-center gap-3">
               <button
                 type="button"
                 onClick={handleNext}
-                className="w-full max-w-[260px] rounded-2xl bg-[#f97316] px-6 py-4 text-base font-bold text-white transition hover:bg-[#ea6c0a] active:scale-[0.98]"
+                className="w-full rounded-2xl bg-[#F5821F] px-6 py-4 text-[15px] font-bold text-white shadow-sm transition hover:bg-[#C65F16] active:scale-[0.98]"
               >
                 {isLastStep ? 'Finish / เสร็จสิ้น' : 'Next / ถัดไป'}
               </button>
@@ -524,117 +538,112 @@ export default function ScenarioStepPractice({
               <button
                 type="button"
                 onClick={handleTryAgain}
-                className="w-full max-w-[260px] rounded-2xl bg-[#e5e5e5] px-6 py-4 text-base font-semibold text-[#333] transition hover:bg-[#d9d9d9] active:scale-[0.98]"
+                className="w-full rounded-2xl bg-slate-100 px-6 py-4 text-center text-[15px] font-semibold text-slate-700 transition hover:bg-slate-200 active:scale-[0.98]"
               >
                 Try again / ลองอีกครั้ง
               </button>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     )
   }
 
   return (
-    <section
-      data-scenario-id={scenarioId}
-      className="min-h-[calc(100vh-3.5rem)] bg-white"
-    >
+    <div className="min-h-[calc(100vh-3.5rem)] bg-slate-50 py-4 px-4 sm:py-6 sm:px-6 pb-8 sm:pb-12">
       <StepDots currentStep={currentStepOrder} completedUpTo={highestCompleted} />
 
-      <StepBar step={currentStep} />
+      <section
+        data-scenario-id={scenarioId}
+        className="mx-auto w-full max-w-3xl overflow-hidden rounded-[24px] bg-white shadow-[0_8px_30px_rgba(15,23,42,0.04)] ring-1 ring-slate-200"
+      >
 
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#e8edf2]">
-        <Image
-          src={BACK_PAIN_IMAGE_PATH}
-          alt="Clinical scenario patient with back pain"
-          fill
-          priority
-          sizes="(max-width: 560px) 100vw, 560px"
-          className="object-contain object-center"
-        />
-      </div>
+        <StepBar step={currentStep} />
 
-      <div className="bg-white px-5 py-5">
-        <div className="mb-4 rounded-2xl border border-orange-100 bg-orange-50 px-4 py-3">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#f97316]">
-            Step {currentStep.order} / ขั้นตอนที่ {currentStep.order}
-          </p>
+        <div className="relative aspect-[16/9] w-full bg-[#e8edf2] sm:aspect-[21/9]">
+          <Image
+            src={BACK_PAIN_IMAGE_PATH}
+            alt="Clinical scenario patient with back pain"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 768px"
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+        </div>
 
-          <p className="mt-1 text-sm font-semibold text-slate-900">
-            {currentStep.title}
-          </p>
-
-          <p className="mt-2 whitespace-pre-line text-sm leading-6 text-slate-700">
+        <div className="mx-6 my-6 rounded-[20px] border border-orange-100 bg-orange-50/50 p-5 sm:mx-8 sm:my-8 sm:p-6">
+          <p className="whitespace-pre-line text-[15px] leading-relaxed text-slate-800">
             {currentStep.prompt}
           </p>
         </div>
 
-        <p className="mb-2 text-base font-bold text-slate-900">
-          Your Answer / คำตอบของนักศึกษา
-        </p>
+        <div className="px-6 pb-8 sm:px-8 sm:pb-10">
+          <p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">
+            Your Answer / คำตอบของนักศึกษา
+          </p>
 
-        <div className="relative rounded-2xl border border-slate-200 bg-white shadow-sm">
-          <textarea
-            value={answer}
-            onChange={(event) => {
-              setAnswer(event.target.value.slice(0, MAX_STEP_ANSWER_LENGTH))
-            }}
-            maxLength={MAX_STEP_ANSWER_LENGTH}
-            rows={6}
-            className="block w-full resize-none rounded-2xl bg-transparent px-4 py-4 pr-14 text-base leading-7 text-slate-950 outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-[#f97316]/25"
-            placeholder="EN: Type your answer or press the microphone to speak. TH: พิมพ์คำตอบหรือกดไมโครโฟนเพื่อพูดคำตอบ"
-          />
+          <div className="relative rounded-[20px] border border-slate-200 bg-white shadow-sm transition-all focus-within:border-[#F5821F] focus-within:ring-1 focus-within:ring-[#F5821F]">
+            <textarea
+              value={answer}
+              onChange={(event) => {
+                setAnswer(event.target.value.slice(0, MAX_STEP_ANSWER_LENGTH))
+              }}
+              maxLength={MAX_STEP_ANSWER_LENGTH}
+              rows={5}
+              className="block w-full resize-none rounded-[20px] bg-transparent px-5 py-5 pr-16 text-[15px] leading-relaxed text-slate-900 outline-none placeholder:text-slate-400"
+              placeholder="EN: Type your answer or press the microphone to speak.&#10;TH: พิมพ์คำตอบหรือกดไมโครโฟนเพื่อพูดคำตอบ"
+            />
+
+            <button
+              type="button"
+              onClick={handleVoiceInput}
+              className={`absolute bottom-3 right-3 flex h-11 w-11 items-center justify-center rounded-full transition ${
+                isListening
+                  ? 'animate-pulse bg-[#F5821F] text-white shadow-md shadow-orange-300'
+                  : 'bg-slate-100 text-slate-400 hover:bg-orange-50 hover:text-[#F5821F]'
+              }`}
+              aria-label={
+                isListening ? 'Stop voice input' : 'Start Thai voice input'
+              }
+              title={isListening ? 'Stop voice input' : 'Start Thai voice input'}
+            >
+              <MicrophoneIcon />
+            </button>
+          </div>
+
+          <div className="mt-3 flex items-center justify-between px-1 text-[13px] text-slate-400">
+            <span>
+              {isListening ? (
+                <span className="animate-pulse font-semibold text-[#F5821F]">
+                  Listening... / กำลังฟัง...
+                </span>
+              ) : (
+                'Voice input: Thai / English'
+              )}
+            </span>
+
+            <span>
+              {answer.length} / {MAX_STEP_ANSWER_LENGTH}
+            </span>
+          </div>
+
+          {speechError && (
+            <div className="mt-4 rounded-[16px] border border-red-200 bg-red-50 p-4 text-[14px] leading-relaxed text-red-800">
+              {speechError}
+            </div>
+          )}
 
           <button
             type="button"
-            onClick={handleVoiceInput}
-            className={[
-              'absolute bottom-3 right-3 inline-flex h-10 w-10 items-center justify-center rounded-full transition',
-              isListening
-                ? 'animate-pulse bg-[#f97316] text-white shadow-md shadow-orange-300'
-                : 'text-slate-400 hover:bg-orange-50 hover:text-[#f97316]',
-            ].join(' ')}
-            aria-label={
-              isListening ? 'Stop voice input' : 'Start Thai voice input'
-            }
-            title={isListening ? 'Stop voice input' : 'Start Thai voice input'}
+            onClick={handleSubmit}
+            disabled={!answer.trim()}
+            className="mt-8 w-full rounded-2xl bg-[#F5821F] px-6 py-4 text-[15px] font-bold text-white shadow-sm transition hover:bg-[#C65F16] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-40 sm:mt-10"
           >
-            <MicrophoneIcon />
+            Submit Answer / ส่งคำตอบ
           </button>
         </div>
-
-        <div className="mt-2 flex items-center justify-between gap-4 text-xs text-slate-400">
-          <span>
-            {isListening ? (
-              <span className="font-semibold text-[#f97316] animate-pulse">
-                Listening... / กำลังฟัง...
-              </span>
-            ) : (
-              'Voice input: Thai / English'
-            )}
-          </span>
-
-          <span>
-            {answer.length} / {MAX_STEP_ANSWER_LENGTH}
-          </span>
-        </div>
-
-        {speechError ? (
-          <div className="mt-3 whitespace-pre-line rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-800">
-            {speechError}
-          </div>
-        ) : null}
-
-        <button
-          type="button"
-          onClick={handleSubmit}
-          disabled={!answer.trim()}
-          className="mt-5 w-full rounded-2xl bg-[#f97316] px-6 py-4 text-base font-bold text-white shadow-sm shadow-orange-200 transition hover:bg-[#ea6c0a] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          Submit Answer / ส่งคำตอบ
-        </button>
-      </div>
-    </section>
+      </section>
+    </div>
   )
 }

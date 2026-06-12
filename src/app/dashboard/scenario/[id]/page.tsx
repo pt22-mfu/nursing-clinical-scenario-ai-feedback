@@ -41,7 +41,7 @@ export default async function AssessmentPage({
             className="inline-flex items-center gap-2 text-sm font-bold text-[#ef6c13] transition hover:text-[#c74f08]"
           >
             <span aria-hidden="true">←</span>
-            Back
+            Back to Dashboard
           </Link>
 
           <p className="max-w-[220px] truncate text-right text-sm font-bold text-slate-800">
