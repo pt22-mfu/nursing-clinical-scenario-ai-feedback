@@ -203,7 +203,7 @@ function TestTypeLabel({ testType }: { testType: TestType }) {
 function ArrowIcon() {
   return (
     <svg
-      className="h-4 w-4 shrink-0"
+      className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -265,7 +265,7 @@ export default async function DashboardPage() {
           <div className="flex shrink-0 items-center gap-4">
             <Link
               href="/dashboard/history"
-              className="hidden items-center justify-center rounded-full bg-gradient-to-r from-[#F5821F] to-[#C65F16] px-4 py-1.5 text-xs font-bold tracking-wide text-white shadow-sm transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#F5821F] focus:ring-offset-2 sm:inline-flex"
+              className="hidden items-center justify-center rounded-full bg-gradient-to-r from-[#F5821F] to-[#C65F16] px-5 py-2.5 text-sm font-bold tracking-wide text-white shadow-sm transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#F5821F] focus:ring-offset-2 sm:inline-flex"
             >
               Practice History
             </Link>
@@ -346,40 +346,6 @@ export default async function DashboardPage() {
 
       <main className="mx-auto w-full max-w-[1500px] flex-1 px-5 py-10 sm:px-8 lg:px-10 lg:py-14">
         <section>
-          <div className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between lg:mb-12">
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl bg-white px-5 py-3 text-sm shadow-sm ring-1 ring-slate-200 sm:rounded-full">
-              <span className="font-bold uppercase tracking-wider text-[#C65F16]">
-                Curriculum Structure
-              </span>
-
-              <span className="text-slate-300" aria-hidden="true">
-                |
-              </span>
-
-              <span className="font-semibold text-[#0F5C6E]">
-                2 Available Now
-              </span>
-
-              <span className="text-slate-300" aria-hidden="true">
-                |
-              </span>
-
-              <span className="font-medium text-slate-500">
-                6 Coming Soon
-              </span>
-
-              <span className="text-slate-300" aria-hidden="true">
-                |
-              </span>
-
-              <span className="font-medium text-slate-500">4 Systems</span>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3">
-              <StatusBadge status="not-implemented" />
-            </div>
-          </div>
-
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-10">
             {curriculum.map((system) => (
               <section
@@ -409,10 +375,10 @@ export default async function DashboardPage() {
 
                     const cardContent = (
                       <div
-                        className={`flex h-full min-h-[260px] flex-col rounded-2xl p-5 ring-1 transition ${
+                        className={`flex h-full min-h-[260px] flex-col rounded-2xl p-5 transition ${
                           isDemoReady
-                            ? 'border-l-4 border-[#0F5C6E] bg-[#F0F7F9] ring-[#0F5C6E]/15 hover:shadow-md'
-                            : 'bg-white ring-slate-200 hover:bg-[#FCFCFD]'
+                            ? 'ring-1 border-l-4 border-[#0F5C6E] bg-[#F0F7F9] ring-[#0F5C6E]/15 hover:shadow-[0_12px_30px_-4px_rgba(15,92,110,0.14)] hover:ring-[#0F5C6E]/30'
+                            : 'bg-white/80 border border-dashed border-slate-300 opacity-65 hover:bg-slate-50/50'
                         }`}
                       >
                         <div className="flex flex-wrap items-start justify-between gap-3">
@@ -436,7 +402,7 @@ export default async function DashboardPage() {
 
                         {isDemoReady && (
                           <div className="mt-4 flex flex-col gap-3">
-                            <div className="inline-flex items-center gap-2 self-start rounded-xl bg-[#0F5C6E] px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-[#0A4350]">
+                            <div className="inline-flex items-center gap-2 self-start rounded-xl bg-[#0F5C6E] px-4 py-2.5 text-sm font-medium text-white shadow-sm transition group-hover:bg-[#0A4350]">
                               Start
                               <ArrowIcon />
                             </div>
@@ -456,7 +422,7 @@ export default async function DashboardPage() {
                         <Link
                           key={slot.id}
                           href={`/dashboard/scenario/${slot.scenarioId}`}
-                          className="block h-full"
+                          className="block h-full group"
                         >
                           {cardContent}
                         </Link>
@@ -477,12 +443,12 @@ export default async function DashboardPage() {
       </main>
 
       <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-[1500px] flex-col gap-1 px-5 py-4 text-center text-sm text-black sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:text-left lg:px-10">
+        <div className="mx-auto flex max-w-[1500px] flex-col gap-2 px-5 py-5 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-10">
           <p>© 2026 School of Nursing, Mae Fah Luang University.</p>
 
           <p>
             Clinical Nurse Learning Lab &bull; Developed by{' '}
-            <span className="font-semibold text-black">MLii</span>
+            <span className="font-semibold text-slate-700">MLii</span>
           </p>
         </div>
       </footer>
