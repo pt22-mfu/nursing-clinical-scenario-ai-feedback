@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏥 Web-Based Clinical Scenario with AI Feedback System
 
-## Getting Started
+A clinical education platform built for the School of Nursing (MFU) — delivering 12 interactive patient scenarios across 6 body systems with real-time AI-powered response evaluation for 4th-year nursing students (n=138).
 
-First, run the development server:
+## Key Features
+- **Hybrid AI Evaluation Engine** — combines a rule-based keyword matcher (<500ms) with Google Gemini 1.5 Flash for semantic assessment of mixed Thai-English clinical responses
+- **RBAC** — 3-tier role hierarchy (Admin / Faculty / Student), enforced server-side via middleware on every API route
+- **Thai PDPA Compliance** — encrypted PII (AES-256), digital consent flow, audit logging, right-to-erasure support
+- **Zero-Budget Architecture** — Upstash Redis response caching to respect Gemini Free Tier rate limits and eliminate redundant API calls
+- **RESTful API** — Zod-validated input across auth, scenario, assessment, and export endpoints
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Tech Stack
+- **Frontend:** Next.js 14 (App Router), TypeScript, Tailwind CSS, Shadcn/ui
+- **Backend:** Next.js API Routes, Prisma ORM, Jose (JWT), Zod
+- **Database:** PostgreSQL via Supabase
+- **AI/Caching:** Google Gemini 1.5 Flash API, Upstash Redis
+- **Deployment:** Vercel + Supabase (MVP phase)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## My Role
+Authored the complete Software Requirements Specification (SRS), architected the Hybrid AI Evaluation Engine and PDPA-compliant data flow, and developed the functional UI prototype.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Status
+Working UI prototype and system architecture completed. Full backend integration paused pending administrative budget confirmation.
